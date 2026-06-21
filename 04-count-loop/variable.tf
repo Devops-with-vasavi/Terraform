@@ -1,7 +1,17 @@
 
 variable "environment" {
     type = string
-    default = "prod"
+    default = "dev"
+}
+
+variable "project" {
+  type = string
+  default = "roboshop"
+}
+
+variable "instances" {
+  type = list
+  default = ["mongodb", "redid", "mysql", "rabbitmq"]
 }
 
 variable "ami_id" {
@@ -20,15 +30,6 @@ variable "instance_type" {
   }
 }
 
-variable "ec2_tags" {
-  type = map
-  default = {
-    Name        = "terraform-demo-1"
-    Project     = "roboshop"
-    Environment = "dev"
-  }
-}
-
 variable "sg_name" {
   type    = string
   default = "allow_terraform_vars"
@@ -42,12 +43,4 @@ variable "port" {
 variable "cidr" {
   type    = list
   default = ["0.0.0.0/0"]
-}
-variable "sg_tags" {
-  type = map
-  default = {
-    Name        = "allow_terraform"
-    Project     = "roboshop"
-    Environment = "dev"
-  }
 }

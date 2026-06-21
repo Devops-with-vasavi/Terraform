@@ -1,13 +1,18 @@
 resource "aws_instance" "terraform_demo" {
+  count = 4
   ami                    = var.ami_id
-  instance_type          = var.environment == "prod" ? "t3.micro" : "t3.small"
-  vpc_security_group_ids = [aws_security_group.allow_terraform.id] # list
+  instance_type          = var.instance_type
+  vpc_security_group_ids = [aws_security_group.allow_terraform[count.index].id] # list
   # labels, metadata, info, etc
-  tags = var.ec2_tags
+  tags = {
+    name = "${var.project}-${var.environment}-${var.instances[count.index]}" #interpolation
+  }
 }
+
 # It creates in default VPC
 resource "aws_security_group" "allow_terraform" {
-  name        = var.sg_name
+  count = 4
+  name        = "${var.project}-${var.environment}-${var.instances[count.index]}"
   description = "Allow TLS inbound traffic and all outbound traffic"
 
   # outbound traffic
@@ -18,5 +23,7 @@ resource "aws_security_group" "allow_terraform" {
     cidr_blocks = var.cidr
   }
 
-  tags = var.sg_tags
+  tags = {
+  name  = "${var.project}-${var.environment}-${var.instances[count.index]}"
+  }
 }
