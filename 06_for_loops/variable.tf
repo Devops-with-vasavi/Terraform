@@ -60,12 +60,25 @@ variable "instance" {
     rabbitmq = {
       "instance_type" = "t3.micro"
     }
-    
-   
-
+    catalogue = {
+      "instance_type" = "t3.micro"
+    }
+    user = {
+      "instance_type" = "t3.micro"
+    }
+    cart = {
+      "instance_type" = "t3.micro"
+    }
+    shipping = {
+      "instance_type" = "t3.micro"
+    }
+    payment = {
+      "instance_type" = "t3.micro"
+    }
+    frontend = {
+      "instance_type" = "t3.micro"
+    }
   }
-  
-  
 }
 variable "domain_name" {
   type =  string
