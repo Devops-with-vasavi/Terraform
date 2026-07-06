@@ -2,20 +2,19 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "6.48.0"
+      version = "6.49.0"
     }
   }
-  #remote state storage location
+
+  # remote state storage location
   backend "s3" {
     bucket         = "terraform-demo01-bucket"
-    key            = "my-first-terraform-remote.tfstate"
+    key            = "workspace-demo.tfstate"
     region         = "us-east-1"
     encrypt        = true
-    # Optional: enable native S3 locking (Terraform 1.10+)
-    use_lockfile   = true
+    use_lockfile   = true # Enables native S3 state locking (Terraform 1.10+)
   }
 }
-
 
 # Configure the AWS Provider
 provider "aws" {

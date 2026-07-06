@@ -1,11 +1,9 @@
 resource "aws_instance" "terraform_demo" {
-  ami                    = data.aws_ami.joindevops
-  instance_type          = t3.micro
+  ami                    = local.ami_id
+  instance_type          = local.instance_type
   vpc_security_group_ids = [aws_security_group.allow_terraform.id] # list
   # labels, metadata, info, etc
-  tags = {
-    name = local.name 
-  }
+  tags = local.ec2_tags
 }
 
 # It creates in default VPC
@@ -20,4 +18,6 @@ resource "aws_security_group" "allow_terraform" {
     protocol    = "-1" # all traffic
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = local.sg_tags
 }
